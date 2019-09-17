@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +14,10 @@ namespace SendMailWorker
     {
         private readonly IZeebeClient _client;
         private readonly ILogger<ZeebeWorker> _logger;
-        private IJobWorker _worker;
+        private IJobWorker _fooWorker;
+        private IJobWorker _barWorker;
+        private IJobWorker _foobarWorker;
+        private IJobWorker _barfooWorker;
         private CancellationTokenSource _shutdown = new CancellationTokenSource();
 
         public ZeebeWorker(IZeebeClient client, ILogger<ZeebeWorker> logger)
@@ -24,14 +28,41 @@ namespace SendMailWorker
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _worker = _client.NewWorker()
-             .JobType("foo")
-             .Handler(async (c, j) => await Handler(c, j))
-             .MaxJobsActive(5)
-             .Name(Environment.MachineName)
-             .PollInterval(TimeSpan.FromSeconds(1))
-             .Timeout(TimeSpan.FromMinutes(60))
-             .Open();
+            _fooWorker = _client.NewWorker()
+                .JobType("foo")
+                .Handler((c, j) => Handler(c, j).Wait())
+                .MaxJobsActive(5)
+                .Name(Environment.MachineName)
+                .PollInterval(TimeSpan.FromSeconds(1))
+                .Timeout(TimeSpan.FromMinutes(60))
+                .Open();
+
+            _barWorker = _client.NewWorker()
+                .JobType("bar")
+                .Handler((c, j) => Handler(c, j).Wait())
+                .MaxJobsActive(5)
+                .Name(Environment.MachineName)
+                .PollInterval(TimeSpan.FromSeconds(1))
+                .Timeout(TimeSpan.FromMinutes(60))
+                .Open();
+
+            _foobarWorker = _client.NewWorker()
+              .JobType("barfoo")
+              .Handler((c, j) => Handler(c, j).Wait())
+              .MaxJobsActive(5)
+              .Name(Environment.MachineName)
+              .PollInterval(TimeSpan.FromSeconds(1))
+              .Timeout(TimeSpan.FromMinutes(60))
+              .Open();
+
+            _barfooWorker = _client.NewWorker()
+              .JobType("foobar")
+              .Handler((c, j) => Handler(c, j).Wait())
+              .MaxJobsActive(5)
+              .Name(Environment.MachineName)
+              .PollInterval(TimeSpan.FromSeconds(1))
+              .Timeout(TimeSpan.FromMinutes(60))
+              .Open();
 
             return Task.CompletedTask;
         }
@@ -39,6 +70,8 @@ namespace SendMailWorker
         public async Task StopAsync(CancellationToken cancellationToken)
         {
             _shutdown.Cancel();
+            _fooWorker.Dispose();
+            _barWorker.Dispose();
             await Task.Delay(500);
         }
 
@@ -47,11 +80,20 @@ namespace SendMailWorker
         {
             if (!_shutdown.IsCancellationRequested)
             {
-                var address = job.VariablesAsDictionary["address"].ToString();
-                _logger.LogInformation($"Sending mail to: {address}");
+                _logger.LogInformation($"Job name: {job.Type}");
 
                 await Task.Delay(200, _shutdown.Token);
-                await client.NewCompleteJobCommand(job.Key).Send();
+                var jobKey = job.Key;
+
+                if (job.Type == "bar")
+                {
+                    var variables = new { foo = (jobKey % 3 == 0) ? 100 : 0 };
+                    await client.NewCompleteJobCommand(jobKey).Variables(JsonConvert.SerializeObject(variables)).Send();
+                }
+                else
+                {
+                    await client.NewCompleteJobCommand(jobKey).Send();
+                }
             }
         }
     }

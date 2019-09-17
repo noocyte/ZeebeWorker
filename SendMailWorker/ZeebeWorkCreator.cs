@@ -20,10 +20,11 @@ namespace SendMailWorker
             this._client = client;
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
+            //deploy latest
+            var deployResponse = await _client.NewDeployCommand().AddResourceFile(@"c:\Users\jany\Downloads\order.yaml").Send();
             _backgroundTask = Task.Run(BackgroundProceessing);
-            return Task.CompletedTask;
         }
 
         private async Task BackgroundProceessing()
@@ -39,12 +40,13 @@ namespace SendMailWorker
 
                 await _client
                      .NewCreateWorkflowInstanceCommand()
-                     .BpmnProcessId("bar")
+                     .BpmnProcessId("order-something")
                      .LatestVersion()
                      .Variables(JsonConvert.SerializeObject(variables))
                      .Send();
 
-                await Task.Delay(TimeSpan.FromSeconds(1), _shutdown.Token);
+                //await Task.Delay(TimeSpan.FromSeconds(1), _shutdown.Token);
+                await Task.Delay(TimeSpan.FromDays(1), _shutdown.Token);
             }
         }
 

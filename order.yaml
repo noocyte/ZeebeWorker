@@ -1,0 +1,20 @@
+name: order-something
+
+tasks:
+    - id: t1
+      type: foo
+    
+    - id: t2
+      type: bar
+      switch:
+        - case: foo > 0
+          goto: t3
+
+        - default: t4
+    
+    - id: t3
+      type: barfoo
+      end: true
+    
+    - id: t4
+      type: foobar

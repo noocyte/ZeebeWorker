@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendMailWorker", "SendMailWorker\SendMailWorker.csproj", "{E90CE8F9-1E46-4C6C-A1AB-9E96D937458D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendMailWorker", "SendMailWorker\SendMailWorker.csproj", "{E90CE8F9-1E46-4C6C-A1AB-9E96D937458D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Flows", "Flows", "{A0A78A09-6F08-4D4F-9674-9E2966F03E30}"
+	ProjectSection(SolutionItems) = preProject
+		order.yaml = order.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

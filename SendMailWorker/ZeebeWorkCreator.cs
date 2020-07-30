@@ -32,6 +32,8 @@ namespace SendMailWorker
             var i = 0;
             while (!_shutdown.IsCancellationRequested)
             {
+                Console.WriteLine("Starting new instance of workflow");
+
                 i++;
                 var variables = new Dictionary<string, string>
                 {
@@ -45,8 +47,8 @@ namespace SendMailWorker
                      .Variables(JsonConvert.SerializeObject(variables))
                      .Send();
 
-                //await Task.Delay(TimeSpan.FromSeconds(1), _shutdown.Token);
-                await Task.Delay(TimeSpan.FromDays(1), _shutdown.Token);
+                await Task.Delay(TimeSpan.FromSeconds(10), _shutdown.Token);
+                //await Task.Delay(TimeSpan.FromDays(1), _shutdown.Token);
             }
         }
 

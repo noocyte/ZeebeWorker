@@ -81,8 +81,9 @@ namespace SendMailWorker
             if (!_shutdown.IsCancellationRequested)
             {
                 _logger.LogInformation($"Job name: {job.Type}");
+                Console.WriteLine($"Current variables: {job.Variables}");
 
-                await Task.Delay(200, _shutdown.Token);
+                await Task.Delay(2000, _shutdown.Token);
                 var jobKey = job.Key;
 
                 if (job.Type == "bar")

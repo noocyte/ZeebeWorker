@@ -27,7 +27,7 @@ namespace Priceforecaster
                 .JobType("get-priceforecast")
                 .Handler((c, j) => Handler(c, j).Wait())
                 .MaxJobsActive(5)
-                .Name(Environment.MachineName)
+                .Name(Environment.MachineName + "priceforecast")
                 .PollInterval(TimeSpan.FromSeconds(1))
                 .Timeout(TimeSpan.FromMinutes(60))
                 .Open();

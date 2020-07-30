@@ -28,7 +28,7 @@ namespace RunOptimization
                 .JobType("run-optimize")
                 .Handler((c, j) => Handler(c, j).Wait())
                 .MaxJobsActive(5)
-                .Name(Environment.MachineName)
+                .Name(Environment.MachineName + "runoptimal")
                 .PollInterval(TimeSpan.FromSeconds(1))
                 .Timeout(TimeSpan.FromMinutes(60))
                 .Open();

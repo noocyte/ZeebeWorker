@@ -27,7 +27,7 @@ namespace ExecutePlan
                 .JobType("execute-plan")
                 .Handler((c, j) => Handler(c, j).Wait())
                 .MaxJobsActive(5)
-                .Name(Environment.MachineName)
+                .Name(Environment.MachineName + "executeplan")
                 .PollInterval(TimeSpan.FromSeconds(1))
                 .Timeout(TimeSpan.FromMinutes(60))
                 .Open();

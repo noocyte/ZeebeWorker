@@ -41,10 +41,10 @@
       <bpmn:outgoing>Flow_03i0fv0</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_0enobmv" name="no" sourceRef="Gateway_1p7k17e" targetRef="EndEvent_0a27csw">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">betterPlanFound = 0</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">= betterPlanFound = 0</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_03i0fv0" name="yes" sourceRef="Gateway_1p7k17e" targetRef="Task_00moy91">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">betterPlanFound = 1</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">= betterPlanFound = 1</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">

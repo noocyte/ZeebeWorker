@@ -7,9 +7,9 @@ using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 using Zeebe.Client;
 
-namespace SendMailWorker
+namespace Priceforecaster
 {
-    public class Program
+    class Program
     {
         public static async Task Main(string[] args)
         {
@@ -39,8 +39,7 @@ namespace SendMailWorker
                       return client;
                   });
 
-                  services.AddHostedService<ZeebeWorker>();
-                  services.AddHostedService<ZeebeWorkCreator>();
+                  services.AddHostedService<PriceforecasterWorker>();
               })
               .ConfigureLogging((hostingContext, logging) =>
               {

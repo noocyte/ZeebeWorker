@@ -1,4 +1,4 @@
-﻿namespace SendMailWorker
+﻿namespace Common
 {
     public class ZeebeConfig
     {

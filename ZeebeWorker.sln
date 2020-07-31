@@ -8,15 +8,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Flows", "Flows", "{A0A78A09-6F08-4D4F-9674-9E2966F03E30}"
 	ProjectSection(SolutionItems) = preProject
 		order.yaml = order.yaml
+		timer_optimize.bpmn = timer_optimize.bpmn
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Priceforecaster", "Priceforecaster\Priceforecaster.csproj", "{99510B6E-1EAB-4D3A-BB56-6D94A37B9924}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Priceforecaster", "Priceforecaster\Priceforecaster.csproj", "{99510B6E-1EAB-4D3A-BB56-6D94A37B9924}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{A835A9ED-8C39-4F54-B0FF-9F2117F9108E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{A835A9ED-8C39-4F54-B0FF-9F2117F9108E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunOptimization", "RunOptimization\RunOptimization.csproj", "{7293182E-9CAF-4FE8-ADC7-A139C9B49300}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RunOptimization", "RunOptimization\RunOptimization.csproj", "{7293182E-9CAF-4FE8-ADC7-A139C9B49300}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecutePlan", "ExecutePlan\ExecutePlan.csproj", "{665F9B15-0DFF-49E0-A154-526987B96552}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExecutePlan", "ExecutePlan\ExecutePlan.csproj", "{665F9B15-0DFF-49E0-A154-526987B96552}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
